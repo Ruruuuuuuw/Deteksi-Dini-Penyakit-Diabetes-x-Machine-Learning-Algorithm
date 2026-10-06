@@ -1,0 +1,541 @@
+/* =========================================================
+   DIABETES RISK PREDICTION — VISUAL SYSTEM v2
+   Professional, colorful, modern UI.
+   UI-only styling. Application logic and navigation are unchanged.
+========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+    /* Brand palette */
+    --indigo:      #4f46e5;
+    --indigo-dark: #4338ca;
+    --violet:      #7c3aed;
+    --teal:        #0891b2;
+    --amber:       #f59e0b;
+    --rose:        #f43f5e;
+    --emerald:     #10b981;
+
+    --grad-brand: linear-gradient(135deg, #4f46e5 0%, #7c3aed 55%, #0891b2 120%);
+    --grad-brand-soft: linear-gradient(135deg, rgba(79,70,229,0.10) 0%, rgba(124,58,237,0.10) 55%, rgba(8,145,178,0.10) 120%);
+
+    --blue: #4f46e5;
+    --blue-dark: #4338ca;
+    --blue-soft: #eef2ff;
+
+    --ink: #161b2c;
+    --muted: #667085;
+    --line: #e6e9f2;
+    --surface: #ffffff;
+    --canvas: #f3f5fb;
+    --shadow: 0 12px 32px rgba(31, 41, 84, 0.08);
+    --shadow-lg: 0 20px 50px rgba(31, 41, 84, 0.14);
+    --radius: 18px;
+}
+
+* {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* =========================================================
+   CANVAS
+========================================================= */
+
+.stApp {
+    background:
+        radial-gradient(1100px 520px at 8% -8%, rgba(79,70,229,0.10), transparent 60%),
+        radial-gradient(900px 480px at 105% 0%, rgba(8,145,178,0.10), transparent 55%),
+        var(--canvas);
+    color: var(--ink);
+}
+
+/* Thin brand ribbon fixed at top of viewport */
+.stApp::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: var(--grad-brand);
+    z-index: 999999;
+}
+
+[data-testid="stAppViewContainer"] .main .block-container {
+    max-width: 1180px;
+    padding: 3rem 2rem 4rem;
+}
+
+/* =========================================================
+   HEADINGS / HERO
+========================================================= */
+
+.title {
+    background: var(--grad-brand);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent !important;
+    font-family: 'Poppins', 'Inter', sans-serif;
+    font-size: clamp(2.1rem, 4vw, 2.8rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    margin: 0 0 0.5rem;
+    text-align: left;
+}
+
+.subtitle {
+    color: var(--muted) !important;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin: 0 0 2rem;
+    text-align: left;
+}
+
+.subtitle b { color: var(--ink); }
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--ink) !important;
+    font-family: 'Poppins', 'Inter', sans-serif;
+    letter-spacing: -0.02em;
+}
+
+h2 { margin-top: 1.65rem; font-size: 1.4rem !important; }
+h3 { margin-top: 1.35rem; font-size: 1.15rem !important; }
+
+/* Small colorful pill badge, can be added via markdown if needed */
+.badge-pill {
+    display: inline-block;
+    background: var(--grad-brand-soft);
+    border: 1px solid rgba(79,70,229,0.18);
+    border-radius: 999px;
+    color: var(--indigo-dark);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    padding: 0.32rem 0.85rem;
+    margin-bottom: 0.9rem;
+}
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+[data-testid="stSidebar"] {
+    background: linear-gradient(180deg, #ffffff 0%, #fbfbff 100%);
+    border-right: 1px solid var(--line);
+    box-shadow: 4px 0 24px rgba(31,41,84,0.03);
+}
+
+[data-testid="stSidebar"] > div:first-child {
+    padding: 1.75rem 1.1rem 1.25rem;
+}
+
+[data-testid="stSidebar"] img {
+    border-radius: 50%;
+    border: 4px solid #fff;
+    box-shadow: 0 0 0 3px rgba(79,70,229,0.25), 0 10px 22px rgba(79,70,229,0.18);
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+}
+
+[data-testid="stSidebar"] hr {
+    margin: 1.25rem 0;
+    border-color: var(--line);
+}
+
+[data-testid="stSidebar"] .stButton > button {
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    color: #47506b;
+    font-size: 0.95rem;
+    font-weight: 600;
+    height: 2.7rem;
+    justify-content: flex-start;
+    padding: 0 0.9rem;
+    text-align: left;
+    transition: background .18s ease, color .18s ease, transform .18s ease, box-shadow .18s ease;
+}
+
+[data-testid="stSidebar"] .stButton > button:hover {
+    background: var(--grad-brand-soft);
+    border-color: rgba(79,70,229,0.18);
+    color: var(--indigo-dark);
+    transform: translateX(2px);
+    box-shadow: none;
+}
+
+/* Colorful accent per nav item (Streamlit >= 1.31 key-based classes) */
+[data-testid="stSidebar"] .st-key-sidebar_dashboard .stButton > button:hover,
+[data-testid="stSidebar"] div[data-testid="stButton"]:nth-of-type(1) button:hover {
+    background: rgba(79,70,229,0.10);
+    color: var(--indigo-dark);
+    border-color: rgba(79,70,229,0.22);
+}
+
+[data-testid="stSidebar"] .st-key-sidebar_prediction .stButton > button:hover,
+[data-testid="stSidebar"] div[data-testid="stButton"]:nth-of-type(2) button:hover {
+    background: rgba(124,58,237,0.10);
+    color: var(--violet);
+    border-color: rgba(124,58,237,0.22);
+}
+
+[data-testid="stSidebar"] .st-key-sidebar_history .stButton > button:hover,
+[data-testid="stSidebar"] div[data-testid="stButton"]:nth-of-type(3) button:hover {
+    background: rgba(8,145,178,0.10);
+    color: var(--teal);
+    border-color: rgba(8,145,178,0.22);
+}
+
+[data-testid="stSidebar"] .st-key-sidebar_profile .stButton > button:hover,
+[data-testid="stSidebar"] div[data-testid="stButton"]:nth-of-type(4) button:hover {
+    background: rgba(245,158,11,0.12);
+    color: #b45309;
+    border-color: rgba(245,158,11,0.25);
+}
+
+[data-testid="stSidebar"] .st-key-sidebar_logout .stButton > button,
+[data-testid="stSidebar"] div[data-testid="stButton"]:nth-of-type(5) button {
+    color: var(--rose);
+    font-weight: 700;
+}
+
+[data-testid="stSidebar"] .st-key-sidebar_logout .stButton > button:hover,
+[data-testid="stSidebar"] div[data-testid="stButton"]:nth-of-type(5) button:hover {
+    background: rgba(244,63,94,0.10);
+    color: #be123c;
+    border-color: rgba(244,63,94,0.22);
+}
+
+[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] h2 {
+    background: var(--grad-brand);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent !important;
+    font-family: 'Poppins', 'Inter', sans-serif;
+    font-size: 1.15rem;
+    line-height: 1.35;
+    margin: 0.35rem 0 1.2rem;
+    text-align: center;
+}
+
+[data-testid="stSidebar"] [data-testid="stCaptionContainer"] {
+    text-align: center;
+    color: #98a2b3 !important;
+}
+
+/* =========================================================
+   INPUTS
+========================================================= */
+
+label,
+.stTextInput label,
+.stNumberInput label,
+.stRadio label,
+.stFileUploader label {
+    color: #334155 !important;
+    font-size: 0.88rem !important;
+    font-weight: 700 !important;
+}
+
+.stTextInput input,
+.stNumberInput input,
+[data-baseweb="input"] input,
+[data-baseweb="select"] {
+    background: #fbfbff !important;
+    border: 1.5px solid #dfe3f0 !important;
+    border-radius: 12px !important;
+    color: var(--ink) !important;
+    min-height: 2.8rem;
+    transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+}
+
+.stTextInput input:focus,
+.stNumberInput input:focus,
+[data-baseweb="input"] input:focus {
+    background: #fff !important;
+    border-color: var(--indigo) !important;
+    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.12) !important;
+}
+
+.stRadio p { color: #334155 !important; }
+
+.stRadio [role="radiogroup"] label {
+    background: #fbfbff;
+    border: 1.5px solid #dfe3f0;
+    border-radius: 12px;
+    padding: 0.5rem 1rem;
+    margin-right: 0.5rem;
+    transition: all .18s ease;
+}
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+div.stButton > button {
+    background: var(--grad-brand);
+    background-size: 160% 160%;
+    border: none;
+    border-radius: 12px;
+    color: #fff;
+    font-size: 0.96rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    min-height: 2.9rem;
+    box-shadow: 0 8px 18px rgba(79, 70, 229, 0.22);
+    transition: background-position .35s ease, box-shadow .2s ease, transform .2s ease;
+}
+
+div.stButton > button:hover {
+    background-position: 100% 0%;
+    box-shadow: 0 12px 26px rgba(79, 70, 229, 0.32);
+    transform: translateY(-2px);
+}
+
+div.stButton > button:active {
+    transform: translateY(0);
+}
+
+div.stButton > button:focus {
+    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.22);
+}
+
+div.stButton > button:disabled {
+    background: #e6e9f2;
+    color: #98a2b3;
+    box-shadow: none;
+}
+
+/* Secondary look for the second button in a pair (e.g. "Kembali" / "Dashboard") */
+[data-testid="column"]:nth-of-type(2) div.stButton > button {
+    background: #fff;
+    border: 1.5px solid #dfe3f0;
+    color: #344054;
+    box-shadow: none;
+}
+
+[data-testid="column"]:nth-of-type(2) div.stButton > button:hover {
+    background: var(--blue-soft);
+    border-color: var(--indigo);
+    color: var(--indigo-dark);
+    box-shadow: none;
+    transform: translateY(-2px);
+}
+
+/* =========================================================
+   METRIC CARDS
+========================================================= */
+
+[data-testid="stMetric"] {
+    background: linear-gradient(180deg, #ffffff 0%, #fdfdff 100%);
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    border-left: 4px solid var(--indigo);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    min-height: 7.25rem;
+    padding: 1.2rem 1.25rem;
+    transition: transform .18s ease, box-shadow .18s ease;
+}
+
+[data-testid="stMetric"]:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+}
+
+[data-testid="stHorizontalBlock"] [data-testid="column"]:nth-child(2) [data-testid="stMetric"] {
+    border-left-color: var(--violet);
+}
+
+[data-testid="stHorizontalBlock"] [data-testid="column"]:nth-child(3) [data-testid="stMetric"] {
+    border-left-color: var(--teal);
+}
+
+[data-testid="stMetricLabel"] {
+    color: var(--muted) !important;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+[data-testid="stMetricValue"] {
+    background: var(--grad-brand);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent !important;
+    font-family: 'Poppins', 'Inter', sans-serif;
+    font-size: clamp(1.55rem, 3vw, 2rem);
+    font-weight: 800;
+}
+
+/* =========================================================
+   CONTAINERS / CARDS
+========================================================= */
+
+[data-testid="stVerticalBlockBorderWrapper"] {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 0.5rem 0.75rem;
+}
+
+/* Conditional accent border via marker elements (JS-free state styling) */
+[data-testid="stVerticalBlockBorderWrapper"]:has(.marker-danger) {
+    border-color: rgba(244,63,94,0.35);
+    border-left: 5px solid var(--rose);
+    background: linear-gradient(180deg, rgba(244,63,94,0.04), #fff 18%);
+}
+
+[data-testid="stVerticalBlockBorderWrapper"]:has(.marker-warning) {
+    border-color: rgba(245,158,11,0.35);
+    border-left: 5px solid var(--amber);
+    background: linear-gradient(180deg, rgba(245,158,11,0.05), #fff 18%);
+}
+
+[data-testid="stVerticalBlockBorderWrapper"]:has(.marker-success) {
+    border-color: rgba(16,185,129,0.35);
+    border-left: 5px solid var(--emerald);
+    background: linear-gradient(180deg, rgba(16,185,129,0.05), #fff 18%);
+}
+
+[data-testid="stVerticalBlockBorderWrapper"]:has(.marker-brand) {
+    border-left: 5px solid var(--indigo);
+}
+
+.marker-danger, .marker-warning, .marker-success, .marker-brand {
+    display: block;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+/* Status pill used inside history / prediction results */
+.status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 0.92rem;
+    padding: 0.35rem 0.9rem;
+    margin-bottom: 0.35rem;
+}
+
+.status-pill.danger  { background: rgba(244,63,94,0.12);  color: #be123c; }
+.status-pill.warning  { background: rgba(245,158,11,0.14); color: #b45309; }
+.status-pill.success { background: rgba(16,185,129,0.12); color: #047857; }
+
+/* =========================================================
+   ALERTS / PROGRESS / UPLOAD
+========================================================= */
+
+.stAlert,
+div[data-baseweb="notification"] {
+    border-radius: 14px;
+    border-width: 1px;
+}
+
+[data-testid="stProgressBar"] > div {
+    background: #e8eaf7;
+    border-radius: 999px;
+    height: 0.65rem;
+}
+
+[data-testid="stProgressBar"] [role="progressbar"] {
+    background: var(--grad-brand);
+    border-radius: 999px;
+}
+
+[data-testid="stFileUploader"] section {
+    background: linear-gradient(180deg, #fbfbff, #f5f6ff);
+    border: 1.5px dashed #a5adf7;
+    border-radius: 14px;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid var(--line);
+    margin: 1.5rem 0;
+}
+
+[data-testid="stDataFrame"] {
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+/* Plotly surface */
+.js-plotly-plot,
+.plot-container {
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+/* Streamlit chrome */
+#MainMenu,
+footer,
+header {
+    visibility: hidden;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #c7cbf0, #a9aef0);
+    border-radius: 999px;
+}
+
+/* =========================================================
+   AUTH PAGES (login / register)
+========================================================= */
+
+.auth-wrap {
+    max-width: 460px;
+    margin: 1.5rem auto 0;
+}
+
+.auth-icon {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    border-radius: 18px;
+    background: var(--grad-brand);
+    box-shadow: 0 12px 26px rgba(79,70,229,0.30);
+    font-size: 1.7rem;
+}
+
+.auth-wrap .title,
+.auth-wrap .subtitle {
+    text-align: center;
+}
+
+.auth-wrap .subtitle { margin-bottom: 1.6rem; }
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 760px) {
+    [data-testid="stAppViewContainer"] .main .block-container {
+        padding: 1.5rem 1rem 3rem;
+    }
+
+    .title { font-size: 2rem; }
+    .subtitle { margin-bottom: 1.25rem; }
+    [data-testid="stMetric"] { min-height: auto; }
+}
+
+[data-testid="stAlert"],
+[data-testid="stAlert"] p,
+[data-testid="stAlert"] span,
+[data-testid="stAlert"] div {
+    color: #172033 !important;
+}
